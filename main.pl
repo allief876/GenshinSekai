@@ -1,22 +1,18 @@
 /*** ============= DEKLARASI FAKTA DINAMIS ============= ***/
 
-:- dynamic(game_running/1).        game_running(false).
+:- dynamic(game_running/1).         game_running(false).
 
-:- dynamic(posisi_pemain/2).       posisi_pemain(0,0).
-:- dynamic(sanity/1).              sanity(0).
-:- dynamic(intelligence/1).        intelligence(0).
-:- dynamic(inventory/1).           inventory([]).
-:- dynamic(inventory_length/1).    inventory_length(0).
-:- dynamic(semester/1).            semester(0).
-:- dynamic(equipment/1).           equipment(0).
-:- dynamic(fakultas/1).            fakultas(NULL).
-:- dynamic(luck/1).                luck(0).
-:- dynamic(enemy/1).               enemy(NULL).
-:- dynamic(enemy_semester/1).      enemy_semester(0).
-:- dynamic(enemy_progress/1).      enemy_progress(0).
-:- dynamic(enemy_attack/1).        enemy_attack(0).
-:- dynamic(enemy_defence/1).       enemy_defence(1).
-:- dynamic(tugas/1).               tugas([]).
+/* Fakta terkait status player */
+:- dynamic(player_faculty).         player_faculty(fish).
+:- dynamic(player_semester/1).      player_semester(0).
+:- dynamic(player_sanity/1).        player_sanity(0).
+:- dynamic(player_intelligence/1).  player_intelligence(0).
+:- dynamic(player_luck/1).          player_luck(0).
+:- dynamic(player_sks/1).           player_sks(0).
+:- dynamic(player_gold).            player_gold(0).
+
+/* Fakta tentang posisi player */
+:- dynamic(player_pos/2).			player_pos(0,0).
 
 /*** ============= INCLUDE OTHER FILE ============= ***/
 
