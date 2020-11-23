@@ -2,6 +2,7 @@
 
 :- dynamic(game_running/1).        game_running(false).
 
+:- dynamic(posisi_pemain/2).       posisi_pemain(0,0).
 :- dynamic(sanity/1).              sanity(0).
 :- dynamic(intelligence/1).        intelligence(0).
 :- dynamic(inventory/1).           inventory([]).
