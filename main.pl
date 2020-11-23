@@ -15,6 +15,7 @@
 :- dynamic(enemy_progress/1).      enemy_progress(0).
 :- dynamic(enemy_attack/1).        enemy_attack(0).
 :- dynamic(enemy_defence/1).       enemy_defence(1).
+:- dynamic(tugas/1).               tugas([]).
 
 /*** ============= INCLUDE OTHER FILE ============= ***/
 
