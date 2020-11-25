@@ -21,14 +21,17 @@ sleep :-
     
     random(J1,70,San),
     San1 is round(San/2),
-    Add is 40-San1,
+    Add1 is 40-San1,
+    player_sanity(P_sanity),
+    player_max_sanity(P_max_sanity),
+    Diff is P_max_sanity-P_sanity,
+    least(Add1, Diff, Add),
     New_gold >= Add,
     New_new_gold is New_gold-Add,
     retract(player_gold(New_gold)),
     asserta(player_gold(New_new_gold)),
     format('Your sanity has increased by ~p.\n',[Add]),
     format('You pay ~p gold.\n',[Add]),
-    player_sanity(P_sanity),
     New_sanity is P_sanity+Add,
     retract(player_sanity(P_sanity)),
     asserta(player_sanity(New_sanity)),!.
@@ -50,3 +53,9 @@ sleep :-
     
 sleep :-
     write('Can\'t sleep here.'),fail.
+    
+least(X,Y,X) :-
+    X < Y,!.
+
+least(X,Y,Y) :-
+    Y =< X.
