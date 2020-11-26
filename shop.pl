@@ -53,3 +53,8 @@ modify_player_inventory(T) :-
     addObj(L,T,M),
     retract(player_inventory(L)),
     asserta(player_inventory(M)).
+
+exitShop :-
+    write('Thanks for coming!'),nl,
+    retract(player_in_shop(true)),
+    asserta(player_in_shop(false)).
