@@ -5,6 +5,10 @@
 /* status */
 
 status :-
+    game_running(false),
+    write('Start dulu gamenya, koplak!'),nl,!.
+
+status :-
 
     player_sanity(Sanity),
     player_intelligence(Intelligence),
