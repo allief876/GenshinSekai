@@ -3,24 +3,22 @@
 /* Menampilkan status player */
 
 /* status */
-/* Deklarasi Fakta */
 
-
-/* Deklarasi Rules */
 status :-
-    write('Your status:'),
-    nl,
-    write('Job'),
-    nl,
-    write('Level: 1'),
-    nl,
-    write('Sanity: 1000/1000'),
-    nl,
-    write('Intelligence: 104'),
-    nl,
-    write('Defense: 89'),
-    nl,
-    write('Exp: 0/18'),
-    nl,
-    write('Gold: 1000'),
-    nl.
+
+    player_sanity(Sanity),
+    player_intelligence(Intelligence),
+    player_semester(Semester),
+    player_luck(Luck),
+    player_sks(Sks),
+    player_gold(Gold),
+    player_faculty(Faculty),
+
+    write('Your status:'), nl,
+    format('Faculty          : ~p~n',[Faculty]), nl,
+    format('Semester         : ~p~n',[Semester]), nl,
+    format('Sanity           : ~p~n',[Sanity]), nl,
+    format('Intelligence     : ~p~n',[Intelligence]), nl,
+    format('Luck             : ~p~n',[Luck]), nl,
+    format('Exp              : ~p~n',[Sks]), nl,
+    format('Gold             : ~p~n',[Gold]), nl.
