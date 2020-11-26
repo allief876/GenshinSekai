@@ -23,12 +23,17 @@
 :- dynamic(map_items/1).			map_items(0).
 :- dynamic(itb/3).
 
-/* Fakte terkait battle */
+/* Fakta terkait battle */
 :- dynamic(monster_status/5).
 :- dynamic(tugas_akhir_status/4).
 :- dynamic(in_test_room/1).         in_test_room(false).
 :- dynamic(turn/1).                 turn(0).
 :- dynamic(last_cheat/1).           last_cheat(0).
+
+/* Fakte terkait tugas dan sks */
+:- dynamic(assignments/4).          assignments(0,0,0,0).
+:- dynamic(player_progress/4).      player_progress(0,0,0,0).
+:- dynamic(assigns_finished/1).     assigns_finished(false).
 
 /*** ============= INCLUDE OTHER FILE ============= ***/
 
@@ -44,7 +49,7 @@
 :- include(shop).
 :- include(load).
 :- include(move).
-/* :- include(pray). */
+:- include(pray).
 :- include(assign).
 :- include(exit).
 

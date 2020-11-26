@@ -256,8 +256,18 @@ update_status(New_M_progress,New_P_sanity,monster) :-
     
     retract(last_cheat(_)),
     asserta(last_cheat(0)),!,
+
+    player_sks(SKS),
+    New_sks is SKS + 1,
+    retract(player_sks(SKS)),
+    asserta(player_sks(New_sks)),
     
-    format('~p gold added to wallet.\n',[Add_gold]),!.
+    format('~p gold added to wallet.\n',[Add_gold]),
+    format('You get an extra SKS, current total: ~p SKS.\n',[New_sks]),
+
+    add_progress(M_type),
+    finish_assignments,
+    naik_semester, !.
 
 update_status(_,New_P_sanity,player) :-
     /* kalah */
