@@ -47,7 +47,7 @@
 /* :- include(save). */
 :- include(status).
 :- include(shop).
-:- include(load).
+/* :- include(load). */
 :- include(move).
 :- include(pray).
 :- include(assign).
