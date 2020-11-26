@@ -1,9 +1,19 @@
 /* https://github.com/Jessinra/IF2121-Survival-game/ */
 
-:- dynamic(usedSpace/1).
-inventory(X) :- usedSpace(X).
+/* inventory */
+inventory :- 
+    write('Inventory:'),nl,
+    show_inventory.
 
-print_inventory(Inventory):- Inventory = [], !.
+/* https://github.com/Jessinra/IF2121-Survival-game/ */
+show_inventory :-
+    player_inventory(Inventory),
+    print_inventory(Inventory).
 
-print_inventory(Inventory):- [Head|Tail] = Inventory, format(" -  ~p \n", [Head]), print_inventory(Tail).
-	
+print_inventory(Inventory):- 
+    Inventory = [], !.
+
+print_inventory(Inventory):- 
+    [Head|Tail] = Inventory,
+    format(" -  ~p \n", [Head]),
+    print_inventory(Tail).
