@@ -14,11 +14,11 @@ status :-
     player_gold(Gold),
     player_faculty(Faculty),
 
-    write('Your status:'), nl,
-    format('Faculty          : ~p~n',[Faculty]), nl,
-    format('Semester         : ~p~n',[Semester]), nl,
-    format('Sanity           : ~p~n',[Sanity]), nl,
-    format('Intelligence     : ~p~n',[Intelligence]), nl,
-    format('Luck             : ~p~n',[Luck]), nl,
-    format('Exp              : ~p~n',[Sks]), nl,
-    format('Gold             : ~p~n',[Gold]), nl.
+    write('Your status:'), nl, nl,
+    format('Faculty          : ~p~n',[Faculty]),
+    format('Semester         : ~p~n',[Semester]),
+    format('Sanity           : ~p~n',[Sanity]),
+    format('Intelligence     : ~p~n',[Intelligence]),
+    format('Luck             : ~p~n',[Luck]),
+    format('Exp              : ~p~n',[Sks]),
+    format('Gold             : ~p~n',[Gold]).
