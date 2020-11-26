@@ -13,6 +13,9 @@
 :- dynamic(player_max_sks/1).       player_max_sks(0).
 :- dynamic(player_gold/1).          player_gold(0).
 
+/* Inventaris pemain */
+:- dynamic(player_inventory/1).     player_inventory([]).
+
 :- dynamic(equipment/1).            equipment(bare_hands).
 
 /* Fakta terkait map */
@@ -37,7 +40,7 @@
 :- include(battle).
 :- include(sleep).
 /* :- include(save). */
-/* :- include(status). */
+:- include(status).
 :- include(shop).
 :- include(load).
 :- include(move).
