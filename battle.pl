@@ -289,7 +289,6 @@ update_status(New_M_progress,New_P_sanity,monster) :-
     retract(tugas_akhir_status(TA_semester, TA_attack, TA_defense, TA_progress)),
     asserta(tugas_akhir_status(TA_semester, TA_attack, TA_defense, 0)),
     
-    player_semester(P_semester),
     player_sanity(P_sanity),
     player_max_sanity(P_max_sanity),
     player_intelligence(P_intelligence),
