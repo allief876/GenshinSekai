@@ -1,4 +1,4 @@
 exit:-
 	/* exit game */
-	write('Sampai jumpa di kegiatan perkuliahan selanjutnya!'), nl,
+	write('See you on the next kuliah!'), nl,
 	halt.

@@ -1,22 +1,19 @@
 /* File: shop.pl */
-/* NIM / Nama: 13519221 / Allief Nuriman */
+/* NIM - Nama: 13519221 - Allief Nuriman */
 /* Mengunjungi & berinteraksi di shop */
 
 /* shop */
 /* Deklarasi Fakta */
 :- dynamic(player_in_shop/1).        player_in_shop(false).
 
-/* =========== github.com/Jessinra/IF2121-Survival-game/blob/master/inventory.pl =========== */
-addObj([], C, [C]) :- !.
-	/* Add object to list : basis */
+add_inventory([], Object, [Object]) :- !.
 
-addObj([A|B], C, [A|D]) :- addObj(B, C, D).
-	/* Add object to list : recrsive */
-/* =========== */
+add_inventory([Head|Tail], Object, [Head|Tail2]) :-
+    add_inventory(Tail, Object, Tail2).
 
 shop :-
     game_running(false),
-    write('Start dulu gamenya, koplak!'),nl,!.
+    write('Please start the game first.'),nl,!.
 
 /*shop :- Jika player sedang tidak di tile 'K'
     game_running(true),
@@ -34,12 +31,12 @@ shop :-
     asserta(player_in_shop(true)),
     write('What do you want to buy?'), nl,
     write('1. Mukjizat (5 gold)'), nl,
-    write('Use command "potion." to buy Mukjizat (It replenish your sanity!)'),nl.
+    write('Use command "potion." to buy Mukjizat (It replenishes your sanity!)'),nl.
 
 potion :-
     player_gold(X),
     X < 200,
-    write('Uang tidak cukup!'),nl,!.
+    write("You don't have enough gold."),nl,!.
 
 potion :-
     player_gold(X),
@@ -50,7 +47,7 @@ potion :-
 
 modify_player_inventory(T) :-
     player_inventory(L),
-    addObj(L,T,M),
+    add_inventory(L,T,M),
     retract(player_inventory(L)),
     asserta(player_inventory(M)).
 
