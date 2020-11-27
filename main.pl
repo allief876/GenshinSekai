@@ -16,7 +16,8 @@
 /* Inventaris pemain */
 :- dynamic(player_inventory/1).     player_inventory([]).
 
-:- dynamic(equipment/1).            equipment(bare_hands).
+:- dynamic(equipment/1).            equipment('Bare hands').
+:- dynamic(equipmentObj/4).
 
 /* Fakta terkait map */
 :- dynamic(player_pos/2).			player_pos(0,0).
@@ -52,12 +53,14 @@
 :- include(pray).
 :- include(assign).
 :- include(exit).
+:- include(equipment).
 
 /* run game */
 
 start :-
     init_player,
     init_itb,
+    init_equipments,
     game_running(false),
     retract(game_running(false)),
     asserta(game_running(true)).

@@ -6,9 +6,7 @@ inventory :-
 
 show_inventory :-
     player_inventory(Inventory),
-    print_inventory(Inventory),
-    equipment(Equipment),
-    format(" - ~p \n ", [Equipment]),nl.
+    print_inventory(Inventory),!.
 
 print_inventory(Inventory):- 
     Inventory = [], !.
@@ -17,6 +15,10 @@ print_inventory(Inventory):-
     [Head|Tail] = Inventory,
     format(" -  ~p \n", [Head]),
     print_inventory(Tail).
+    
+add_inventory(Object, Inventory) :-
+    New_Inventory = [Object|Inventory],!,
+    paste_inventory(New_Inventory).
 
 /* hapus barang dari inventory */
 

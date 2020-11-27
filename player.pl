@@ -33,7 +33,7 @@ set_faculty(1) :-
     
     asserta(player_faculty('STEI')),
     asserta(player_semester(1)),
-    asserta(equipment(arsip_TPB)),
+    asserta(equipment('Arsip TPB')),
     asserta(player_intelligence(14)),
     asserta(player_luck(15)),
     asserta(player_sanity(70)),
@@ -45,7 +45,7 @@ set_faculty(2) :-
     
     asserta(player_faculty('FMIPA')),
     asserta(player_semester(1)),
-    asserta(equipment(penggaris)),
+    asserta(equipment('Penggaris')),
     asserta(player_intelligence(16)),
     asserta(player_luck(12)),
     asserta(player_sanity(60)),
@@ -57,12 +57,12 @@ set_faculty(3) :-
     
     asserta(player_faculty('FTTM')),
     asserta(player_semester(1)),
-    asserta(equipment(jaket_angkatan)),
+    asserta(equipment('Jaket angkatan')),
     asserta(player_intelligence(12)),
     asserta(player_luck(18)),
     asserta(player_sanity(80)),
     asserta(player_max_sanity(80)),
-    asserta(player_gold(30)).
+    asserta(player_gold(70)).
 
 /* status tokoh */
 
@@ -104,11 +104,19 @@ sanity :-
     
 intelligence :-
     player_intelligence(P_intelligence),
-    format('Intelligence        : ~p\n', [P_intelligence]).
+    player_faculty(P_faculty),
+    equipment(Equipment),
+    equipmentObj(Equipment, P_faculty, P_int_mul, _),
+    P_int_use is P_intelligence*P_int_mul,
+    format('Intelligence        : ~2f\n', [P_int_use]).
     
 luck :-
     player_luck(P_luck),
-    format('Luck                : ~p\n', [P_luck]).
+    player_faculty(P_faculty),
+    equipment(Equipment),
+    equipmentObj(Equipment, P_faculty, _, P_luck_mul),
+    P_luck_use is P_luck*P_luck_mul,
+    format('Luck                : ~2f\n', [P_luck_use]).
 
 sks :-
     player_sks(P_sks),

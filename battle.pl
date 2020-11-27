@@ -17,7 +17,13 @@ answer :-
     
     monster_status(_, _, _, M_defense, M_progress),
     status(_, P_intelligence, _, P_sanity),
-    calc_damage(P_intelligence, M_defense, M_damage),
+    
+    player_faculty(P_faculty),
+    equipment(Equipment),
+    equipmentObj(Equipment, P_faculty, P_int_mul, _),
+    P_int_use is P_intelligence*P_int_mul,
+    
+    calc_damage(P_int_use, M_defense, M_damage),
     New_M_progress is M_progress-M_damage,
     
     New_M_progress > 0,
@@ -39,7 +45,13 @@ answer :-
     
     monster_status(_, _, _, M_defense, M_progress),
     status(_, P_intelligence, _, P_sanity),
-    calc_damage(P_intelligence, M_defense, M_damage),
+    
+    player_faculty(P_faculty),
+    equipment(Equipment),
+    equipmentObj(Equipment, P_faculty, P_int_mul, _),
+    P_int_use is P_intelligence*P_int_mul,
+    
+    calc_damage(P_int_use, M_defense, M_damage),
     New_M_progress is M_progress-M_damage,
     
     New_M_progress < 1,!,
@@ -70,7 +82,13 @@ cheat :-
     
     monster_status(_, _, _, M_defense, M_progress),
     status(_, P_intelligence, _, P_sanity),
-    Use_P_intelligence is P_intelligence*1.4,
+    
+    player_faculty(P_faculty),
+    equipment(Equipment),
+    equipmentObj(Equipment, P_faculty, P_int_mul, _),
+    P_int_use is P_intelligence*P_int_mul,
+    
+    Use_P_intelligence is P_int_use*1.4,
     calc_damage(Use_P_intelligence, M_defense, M_damage),
     New_M_progress is M_progress-M_damage,
     
@@ -93,7 +111,13 @@ cheat :-
     
     monster_status(_, _, _, M_defense, M_progress),
     status(_, P_intelligence, _, P_sanity),
-    Use_P_intelligence is P_intelligence*1.4,
+    
+    player_faculty(P_faculty),
+    equipment(Equipment),
+    equipmentObj(Equipment, P_faculty, P_int_mul, _),
+    P_int_use is P_intelligence*P_int_mul,
+    
+    Use_P_intelligence is P_int_use*1.4,
     calc_damage(Use_P_intelligence, M_defense, M_damage),
     New_M_progress is M_progress-M_damage,
     
@@ -132,7 +156,12 @@ monster_attack :-
     
     turn(3),
     
-    calc_damage(M_attack, P_luck, P_damage),
+    player_faculty(P_faculty),
+    equipment(Equipment),
+    equipmentObj(Equipment, P_faculty, _, P_luck_mul),
+    P_luck_use is P_luck*P_luck_mul,
+    
+    calc_damage(M_attack, P_luck_use, P_damage),
     New_P_sanity is P_sanity-P_damage,
     
     retract(turn(1)),
@@ -154,7 +183,12 @@ monster_attack :-
     T1 is T mod 4,
     T1 \== 3,
     
-    calc_damage(M_attack, P_luck, P_damage),
+    player_faculty(P_faculty),
+    equipment(Equipment),
+    equipmentObj(Equipment, P_faculty, _, P_luck_mul),
+    P_luck_use is P_luck*P_luck_mul,
+    
+    calc_damage(M_attack, P_luck_use, P_damage),
     New_P_sanity is P_sanity-P_damage,
     
     New_T is T+1,
@@ -177,7 +211,12 @@ monster_attack :-
     T1 is T mod 4,
     T1 == 3,
     
-    Use_P_luck is P_luck/2,
+    player_faculty(P_faculty),
+    equipment(Equipment),
+    equipmentObj(Equipment, P_faculty, _, P_luck_mul),
+    P_luck_use is P_luck*P_luck_mul,
+    
+    Use_P_luck is P_luck_use/2,
     calc_damage(M_attack, Use_P_luck, P_damage),
     New_P_sanity is P_sanity-P_damage,
     
@@ -244,8 +283,14 @@ update_status(New_M_progress,New_P_sanity,ta) :-
     player_max_sanity(P_max_sanity),
     player_intelligence(P_intelligence),
     player_luck(P_luck),
+    player_faculty(P_faculty),
+    equipment(Equipment),
+    equipmentObj(Equipment, P_faculty, P_int_mul, P_luck_mul),
+    P_int_use is P_intelligence*P_int_mul,
+    P_luck_use is P_luck*P_luck_mul,
+    
     GPA1 is P_sanity/P_max_sanity,
-    Bias is P_intelligence/P_luck,
+    Bias is P_int_use/P_luck_use,
     GPA1 is GPA1+Bias,
     GPA1 is GPA1*100,
     GPA1 is round(GPA1),
@@ -272,7 +317,13 @@ update_status(New_M_progress,New_P_sanity,monster) :-
     asserta(in_test_room(false)),
     
     player_gold(Gold),
-    calc_damage(M_attack, P_luck, Add_gold1),
+    
+    player_faculty(P_faculty),
+    equipment(Equipment),
+    equipmentObj(Equipment, P_faculty, _, P_luck_mul),
+    P_luck_use is P_luck*P_luck_mul,
+    
+    calc_damage(M_attack, P_luck_use, Add_gold1),
     getType(M_type,X),
     Add_gold2 is Add_gold1-M_semester,
     Add_gold is Add_gold2+X*3,
@@ -280,7 +331,7 @@ update_status(New_M_progress,New_P_sanity,monster) :-
     retract(player_gold(Gold)),
     asserta(player_gold(New_gold)),
     
-    update_tugas(M_type),
+    win_battle(M_type),
     
     retract(turn(_)),
     asserta(turn(0)),
@@ -293,7 +344,7 @@ update_status(New_M_progress,New_P_sanity,monster) :-
     retract(player_sks(SKS)),
     asserta(player_sks(New_sks)),!,
     
-    format('~p gold added to wallet.\n',[Add_gold]),
+    format('\n~p gold added to wallet.\n',[Add_gold]),
     format('You get an extra SKS, current total: ~p SKS.\n',[New_sks]),
 
     add_progress(M_type),
@@ -310,7 +361,7 @@ update_status(_,New_P_sanity,player) :-
     
     game_over,!,
     
-    write('You lost!'),nl.
+    write('\nYou lost!'),nl.
 
 update_status(New_M_progress,New_P_sanity,_) :-
     /* belum menang */
@@ -329,9 +380,9 @@ update_status(New_M_progress,New_P_sanity,_) :-
     asserta(player_sanity(New_P_sanity)),!.
     
     
-update_tugas(M_type) :-
+win_battle(M_type) :-
     game_running(true),
-    format('You finished your ~p \n',[M_type]).
+    format('\nYou finished your ~p \n',[M_type]).
 
 tugas_akhir_max_sanity(3500).
 
@@ -368,7 +419,7 @@ graduate(GPA) :-
     
     GPA > 3.5,!,
     write('Congratulations! You completed your Final Assignment!'),nl,nl,
-    format('Graduating with a ~p GPA, ', [GPA]),
+    format('Graduating with a ~2f GPA, ', [GPA3]),
     write('you obtain the honor of Cum Laude!'),nl,
     write('Good luck in the real world!'),nl,!.
     
@@ -377,7 +428,7 @@ graduate(GPA) :-
     
     GPA > 2.5,!,
     write('Congratulations! You completed your Final Assignment!'),nl,nl,
-    format('Graduating with a ~p GPA, ', [GPA]),
+    format('Graduating with a ~2f GPA, ', [GPA]),
     write('you obtain the honor of Highly Satisfactory!'),nl,
     write('Good luck in the real world!'),nl,!.
     
@@ -385,7 +436,7 @@ graduate(GPA) :-
     /* memuaskan */
     
     write('Congratulations! You completed your Final Assignment!'),nl,nl,
-    format('Graduating with a ~p GPA, ', [GPA]),
+    format('Graduating with a ~2f GPA, ', [GPA]),
     write('you obtain the honor of Satisfactory!'),nl,
     write('Good luck in the real world!'),nl,!.
     

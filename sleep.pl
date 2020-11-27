@@ -1,7 +1,64 @@
 sleep :-
+    game_running(true),
+
     player_pos(X,Y),
     itb(kos,X,Y),
     
+    write('What do you wish for:'),nl,nl,
+    write('1. Equipment (100 gold)'),nl,
+    write('2. Sanity    (Min. 3 gold)'),nl,
+    
+    read(Input),
+    executeSleep(Input).
+    
+sleep :-
+    game_running(true),
+
+    write('Can\'t sleep here.'),fail.
+    
+sleep :-
+    game_running(false),
+    
+    write('Please start the game first.'),nl,!.
+    
+executeSleep(1) :-
+    player_gold(Gold),
+    Gold >= 100,
+    
+    random(0,70,J1),
+    J2 is round(J1**0.5),
+    J is 8-J2,
+    J > 0,!,
+    format('You slept for ~p hours.\n',[J]),
+    
+    New_gold is Gold-100,
+    retract(player_gold(Gold)),
+    asserta(player_gold(New_gold)),
+    
+    randomEquipment(New_Equipment),
+    equipmentObj(New_Equipment,E_faculty,_,_),
+    
+    player_inventory(Inventory),
+    add_inventory(New_Equipment, Inventory),
+    
+    format('You wake up with a new ~p (~p)!\n',[New_Equipment, E_faculty]),!.
+    
+executeSleep(1) :-
+    player_pos(X,Y),
+    itb(kos,X,Y),
+    
+    player_gold(Gold),
+    Gold < 3,
+    
+    write('Not enough gold.'),nl,!.
+ 
+executeSleep(1) :-
+    player_pos(X,Y),
+    itb(kos,X,Y),
+    
+    write('Arghh.. Can\'t sleep...'),nl,!.
+    
+executeSleep(2) :-
     player_gold(Gold),
     Gold >= 3,
     
@@ -36,7 +93,7 @@ sleep :-
     retract(player_sanity(P_sanity)),
     asserta(player_sanity(New_sanity)),!.
 
-sleep :-
+executeSleep(2) :-
     player_pos(X,Y),
     itb(kos,X,Y),
     
@@ -45,14 +102,11 @@ sleep :-
     
     write('Not enough gold.'),nl,!.
  
-sleep :-
+executeSleep(2) :-
     player_pos(X,Y),
     itb(kos,X,Y),
     
     write('Arghh.. Can\'t sleep...'),nl,!.
-    
-sleep :-
-    write('Can\'t sleep here.'),fail.
     
 least(X,Y,X) :-
     X < Y,!.
