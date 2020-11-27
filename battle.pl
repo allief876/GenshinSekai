@@ -419,7 +419,7 @@ graduate(GPA) :-
     
     GPA > 3.5,!,
     write('Congratulations! You completed your Final Assignment!'),nl,nl,
-    format('Graduating with a ~2f GPA, ', [GPA3]),
+    format('Graduating with a ~2f GPA, ', [GPA]),
     write('you obtain the honor of Cum Laude!'),nl,
     write('Good luck in the real world!'),nl,!.
     

@@ -15,10 +15,6 @@ print_inventory(Inventory):-
     [Head|Tail] = Inventory,
     format(" -  ~p \n", [Head]),
     print_inventory(Tail).
-    
-add_inventory(Object, Inventory) :-
-    New_Inventory = [Object|Inventory],!,
-    paste_inventory(New_Inventory).
 
 /* hapus barang dari inventory */
 

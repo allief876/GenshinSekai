@@ -59,7 +59,8 @@ equip :-
     
 chooseEquipment(Choice) :-
     equipment('Bare hands'),!,
-    player_inventory(Inventory),
+    player_inventory(PInventory),
+    my_equipment(PInventory, Inventory),
     Choice >= 1,
     length(Inventory, Length),
     Choice =< Length,
@@ -70,13 +71,28 @@ chooseEquipment(Choice) :-
     retract(equipment('Bare hands')),
     asserta(equipment(Equipment)),
     
-    delete_inventory(Inventory, Equipment, New_Inventory),
+    delete_inventory(PInventory, Equipment, New_Inventory),
     paste_inventory(New_Inventory).
+    
+chooseEquipment(Choice) :-
+    equipment('Bare hands'),!,
+    player_inventory(PInventory),
+    my_equipment(PInventory, Inventory),
+    Choice >= 1,
+    length(Inventory, Length),
+    Choice =< Length,
+    nth0(Choice, Inventory, Equipment),
+    
+    player_faculty(P_faculty),
+    equipmentObj(Equipment, E_faculty, _, _),
+    P_faculty \== E_faculty,
+    format('\nUnable to equip (you can only use equipment from ~p).\n',[P_faculty]),!.
 
 chooseEquipment(Choice) :-
     equipment(Curr_Equipment),
     Curr_Equipment \== 'Bare hands',
-    player_inventory(Inventory),
+    player_inventory(PInventory),
+    my_equipment(PInventory, Inventory),
     Choice >= 1,
     length(Inventory, Length),
     Choice =< Length,
@@ -88,10 +104,26 @@ chooseEquipment(Choice) :-
     retract(equipment(Curr_Equipment)),
     asserta(equipment(Equipment)),
     
-    delete_inventory(Inventory, Equipment, New_Inventory),
+    delete_inventory(PInventory, Equipment, New_Inventory),
     paste_inventory(New_Inventory),
     
-    add_inventory(Curr_Equipment, New_Inventory).
+    modify_player_inventory(Curr_Equipment).
+    
+chooseEquipment(Choice) :-
+    equipment(Curr_Equipment),
+    Curr_Equipment \== 'Bare hands',
+    player_inventory(PInventory),
+    my_equipment(PInventory, Inventory),
+    Choice >= 1,
+    length(Inventory, Length),
+    Choice =< Length,
+    Choice1 is Choice-1,
+    nth0(Choice1, Inventory, Equipment),
+    
+    player_faculty(P_faculty),
+    equipmentObj(Equipment, E_faculty, _, _),
+    P_faculty \== E_faculty,
+    format('\nUnable to equip (you can only use equipment from ~p).\n',[P_faculty]),!.
 
 unequip :-
     equipment(Curr_Equipment),!,
@@ -100,11 +132,12 @@ unequip :-
     
     player_inventory(Inventory),
     
-    add_inventory(Curr_Equipment, Inventory).
+    modify_player_inventory(Curr_Equipment).
         
 equipment :-
     write('Equipment:'),nl,
-    player_inventory(Inventory),!,
+    player_inventory(PInventory),
+    my_equipment(PInventory, Inventory),
     print_equipment(1, Inventory),!,
     equipment(Curr_Equipment),
     
@@ -119,12 +152,22 @@ equipment :-
     
     format('\nIn use: ~p (Base Int +~2f, Base Luck +~2f)\n', [Curr_Equipment, P_int_add, P_luck_add]),!.
 
+my_equipment([], []) :-
+    !.
+
+my_equipment([InvHead|InvTail], [InvHead|EquipTail]) :-
+    equipmentObj(InvHead,_,_,_),
+    my_equipment(InvTail,EquipTail).
+    
+my_equipment([InvHead|InvTail], Equip) :-
+    \+ equipmentObj(InvHead,_,_,_),
+    my_equipment(InvTail, Equip).
+
 print_equipment(_, Inventory):- 
     Inventory = [], !.
 
 print_equipment(N, Inventory):- 
     [Head|Tail] = Inventory,
-    equipmentObj(Head,_,_,_),
     
     player_intelligence(P_intelligence),
     player_luck(P_luck),
@@ -140,12 +183,6 @@ print_equipment(N, Inventory):-
     P_int_add is P_int_use-P_int_curr,
     P_luck_add is P_luck_use-P_luck_curr,
     
-    format(" ~p.  ~p ~p (Int +~2f, Luck +~2f)\n", [N, Head, P_faculty, P_int_add, P_luck_add]),
+    format(" ~p. ~p ~p (Int +~2f, Luck +~2f)\n", [N, Head, P_faculty, P_int_add, P_luck_add]),
     N1 is N+1,
     print_equipment(N1, Tail),!.
-    
-print_equipment(N, Inventory):- 
-    [Head|Tail] = Inventory,
-    \+ equipmentObj(Head,_,_,_),
-    format(" -  ~p \n", [Head]),
-    print_equipment(N, Tail),!.

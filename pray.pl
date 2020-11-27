@@ -1,9 +1,11 @@
 pray :-
 	/* pray untuk isi sanity pakai mukjizat, sanity full */
-
-	mukjizat(Object),
+    
+    game_running(true),
+    in_test_room(true),
+    
 	player_inventory(Inventory),
-	search_inventory(Inventory, Object, D),
+	search_inventory(Inventory, 'Mukjizat', D),
 	D == 1,
 	
 	player_sanity(Sanity),
@@ -13,21 +15,26 @@ pray :-
 
 pray :-
 	/* pray untuk isi sanity pakai mukjizat, sanity hampir full */
-
-	mukjizat(Object),
+    
+    game_running(true),
+    in_test_room(true),
+    
 	player_inventory(Inventory),
-	search_inventory(Inventory, Object, D),
+	search_inventory(Inventory, 'Mukjizat', D),
 	D == 1,
 	
 	player_sanity(Sanity),
 	player_max_sanity(P_max_sanity),
-	Sanity + 10 > Max_thirst, !,
+	player_semester(Sem),
+	Add_sanity is round(10*(1.5**Sem)),
+	Temp_sanity is Sanity + Add_sanity,
+	Temp_sanity > P_max_sanity, !,
 	
-	New_sanity is P_max_sanity - Sanity,
+	New_sanity is P_max_sanity-Sanity,
     retract(player_sanity(Sanity)),
-    asserta(player_sanity(New_sanity)),
+    asserta(player_sanity(P_max_sanity)),!,
 
-	delete_inventory(OldInventory, Object, NewInventory),
+	delete_inventory(Inventory, 'Mukjizat', NewInventory),
 	paste_inventory(NewInventory),
 
 	format("Your sanity has been increased by ~p.", [New_sanity]),
@@ -35,32 +42,44 @@ pray :-
 
 pray :-
 	/* pray untuk isi sanity pakai mukjizat, sanity tidak hampir full */
-
-	mukjizat(Object),
+    
+    game_running(true),
+    in_test_room(true),
+    
 	player_inventory(Inventory),
-	search_inventory(Inventory, Object, D),
-	D == 1,
+	search_inventory(Inventory, 'Mukjizat', D),
+	D == 1,!,
 	
 	player_sanity(Sanity),
 	player_max_sanity(P_max_sanity),
-	Sanity + 10 =< Max_thirst, !,
-
-    New_sanity is Sanity + 10,
+	player_semester(Sem),
+	Add_sanity is round(5*(1.5**Sem)),
+	Temp_sanity is Sanity + Add_sanity,
+	Temp_sanity =< P_max_sanity, !,
+    
     retract(player_sanity(Sanity)),
-    asserta(player_sanity(New_sanity)),
+    asserta(player_sanity(Temp_sanity)),!,
 
-	delete_inventory(Inventory, Object, NewInventory),
+	delete_inventory(Inventory, 'Mukjizat', NewInventory),
 	paste_inventory(NewInventory),
 
-	write('Your sanity has been increased by 10.'), nl,
+	format('Your sanity has been increased by ~p.\n',[Add_sanity]),
     write('You used 1 mukjizat.'), nl, !.
 
-pray:-
+pray :-
 	/* pray untuk isi ulang sanity pakai mukjizat, tidak punya mukjizat */
-
-	mukjizat(Object),
+    
+    game_running(true),
+    in_test_room(true),
+    
 	player_inventory(Inventory),
-	search_inventory(Inventory, Object, D),
+	search_inventory(Inventory, 'Mukjizat', D),
     D \== 1, !,
 	
-	write("Too bad, you don't have a miracle..."), nl, !.
+	write('Too bad, you don\'t have a miracle...'), nl, !.
+
+pray :-
+    /* pray di luar battle screen */
+    
+    in_test_room(false),
+    write('No monsters nearby.'),nl,!.

@@ -39,7 +39,7 @@ executeSleep(1) :-
     equipmentObj(New_Equipment,E_faculty,_,_),
     
     player_inventory(Inventory),
-    add_inventory(New_Equipment, Inventory),
+    modify_player_inventory(New_Equipment),
     
     format('You wake up with a new ~p (~p)!\n',[New_Equipment, E_faculty]),!.
     

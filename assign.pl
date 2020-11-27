@@ -157,6 +157,11 @@ assign :-
     player_pos(X,Y),
     \+ itb(tugas,X,Y),
     write('Pick up your assignments at Tugas (T)!'),nl,!.
+    
+assign :-
+    game_running(false).
+    
+    write('Please start the game first.'),nl,!.
 
 /* tambah progress assignment setiap mengalahkan enemy */
 
@@ -253,11 +258,15 @@ finish_assignments.
 
 naik_semester :-
     /* sks belum cukup */
+    game_running(true),
+    
     player_sks(SKS),
     SKS < 18, !.
 
 naik_semester :-
     /* sks cukup */
+    game_running(true),
+    
     player_sks(SKS),
     SKS >= 18, !,
     player_semester(P_semester),
@@ -290,5 +299,6 @@ naik_semester :-
     asserta(player_sanity(New_P_max_sanity)),
     asserta(player_max_sanity(New_P_max_sanity)),
     
-    format('Welcome to Semester ~p.\n',[New_semester]), !.
+    format('Welcome to Semester ~p.\n',[New_semester]), 
+    write('Don\'t forget to pick up your new assignments at Tugas (T)!.'),nl,!.
     
