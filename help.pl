@@ -19,4 +19,6 @@ help :-
         write('12. shop'),nl,
         write('13. assign'),nl,
         write('14. help'),nl,
+        write('15. save(Filename)'),nl,
+        write('16. load_game(Filename)'),nl,
         write('15. exit'),nl,!.

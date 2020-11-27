@@ -1,4 +1,6 @@
-load(Filename):-
+/* Mekanisme save dan load */
+
+load_game(Filename):-
 	/* Function to load file */
 	
 	open(Filename, read, Stream),
