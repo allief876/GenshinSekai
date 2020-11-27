@@ -60,7 +60,9 @@ start :-
     init_equipments,
     game_running(false),
     retract(game_running(false)),
-    asserta(game_running(true)).
+    asserta(game_running(true)),
+    write('You can collect your assignments in T.'), nl,
+    write('Feel free to explore the map and find enemies.'), nl.
 
 game_over :-
     game_running(true),

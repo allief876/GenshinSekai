@@ -26,7 +26,7 @@ init_player :-
     set_faculty(X),
     player_faculty(Fakultas),
     asserta(tugas_akhir_status(8, 250, 250, 3140)),
-    format('Congratulations, your application has been accepted! Welcome to ~p ITB!',[Fakultas]).
+    format('Congratulations, your application has been accepted! Welcome to ~p ITB!\n',[Fakultas]).
     
 set_faculty(1) :-
     /* pemain memilih STEI */
