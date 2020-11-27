@@ -221,7 +221,7 @@ finish_assignments :-
     player_progress(P_Praktikum, P_Tubes, P_UTS, P_UAS),
     P_Praktikum >= N_Praktikum,!,
     P_Tubes >= N_Tubes,!,
-    P_UTS >= N_Tubes,!,
+    P_UTS >= N_UTS,!,
     P_UAS >= N_UAS,!,
 
     retract(assigns_finished(_)),
@@ -231,7 +231,7 @@ finish_assignments :-
     player_gold(Gold),
     player_semester(P_semester),
     Add_gold is P_semester*50,
-    New_gold is Gold + P_semester,
+    New_gold is Gold + Add_gold,
     retract(player_gold(Gold)),
     asserta(player_gold(New_gold)),
     player_sks(SKS),
@@ -249,7 +249,7 @@ finish_assignments :-
     player_progress(P_Praktikum, P_Tubes, P_UTS, P_UAS),
     P_Praktikum < N_Praktikum,
     P_Tubes < N_Tubes,
-    P_UTS < N_Tubes,
+    P_UTS < N_UTS,
     P_UAS < N_UAS,!.
     
 finish_assignments.

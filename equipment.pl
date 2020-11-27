@@ -130,8 +130,6 @@ unequip :-
     retract(equipment(Curr_Equipment)),
     asserta(equipment('Bare hands')),
     
-    player_inventory(Inventory),
-    
     modify_player_inventory(Curr_Equipment).
         
 equipment :-
