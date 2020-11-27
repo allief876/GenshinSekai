@@ -32,7 +32,7 @@
 :- dynamic(last_cheat/1).           last_cheat(0).
 
 /* Fakte terkait tugas dan sks */
-:- dynamic(assignments/4).
+:- dynamic(assignments/4).          assignments(0,0,0,0).
 :- dynamic(player_progress/4).      player_progress(0,0,0,0).
 :- dynamic(assigns_finished/1).     assigns_finished(false).
 

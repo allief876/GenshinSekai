@@ -73,15 +73,6 @@ load_game(Filename):-
 	asserta(player_progress(New_A,New_B,New_C,New_D)),
 	asserta(assignments(New_F,New_G,New_H,New_I)),
 	
-	map_items(Map_items),
-
-	retract(map_items(Map_items)),
-	
-	/* Read map data */
-	read(Stream, New_Map_items),		
-
-	asserta(map_items(New_Map_items)),
-	
 	write('Successfully loaded!'), nl,
 	close(Stream).
 
@@ -105,8 +96,6 @@ save(Filename):-
 	player_gold(Gold),
 	player_progress(A,B,C,D),
 	assignments(F,G,H,I),
-	
-	map_items(Map_items),
 
 	/* Write player data */
 	write(Stream, Sanity), 			write(Stream, '.'), nl(Stream),
@@ -129,9 +118,6 @@ save(Filename):-
 	write(Stream, G), 		    	write(Stream, '.'), nl(Stream),
 	write(Stream, H), 		    	write(Stream, '.'), nl(Stream),
 	write(Stream, I), 		    	write(Stream, '.'), nl(Stream),
-	
-	/* Write map data */
-	write(Stream, Map_items), 		write(Stream, '.'), nl(Stream),
 	
 	write('Successfully saved!'), nl,
 	close(Stream).
