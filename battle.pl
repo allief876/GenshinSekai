@@ -264,7 +264,7 @@ sekip :-
     write('No tests nearby.'),nl,!.
     
 update_status(New_M_progress,New_P_sanity,monster) :-
-    /* menang ta */
+    /* selesai TA */
     
     game_running(true),
     in_test_room(true),
@@ -290,11 +290,11 @@ update_status(New_M_progress,New_P_sanity,monster) :-
     P_luck_use is P_luck*P_luck_mul,
     
     GPA1 is P_sanity/P_max_sanity,
-    Bias is P_int_use/P_luck_use,
+    Bias1 is P_int_use/P_luck_use,
+    Bias is Bias1-1,
     GPA2 is GPA1+Bias,
-    GPA3 is round(GPA2),
-    least(GPA3, 1, GPA4),
-    GPA is GPA4*4,!,
+    least(GPA2, 1, GPA3),
+    GPA is GPA3*4,!,
     
     graduate(GPA),!.
     
