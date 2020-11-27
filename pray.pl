@@ -28,7 +28,7 @@ pray :-
     asserta(player_sanity(New_sanity)),
 
 	delete_inventory(OldInventory, Object, NewInventory),
-	modify_inventory(NewInventory),
+	paste_inventory(NewInventory),
 
 	format("Your sanity has been increased by ~p.", [New_sanity]),
 	write('You used 1 mukjizat.'), nl, !.
@@ -50,7 +50,7 @@ pray :-
     asserta(player_sanity(New_sanity)),
 
 	delete_inventory(Inventory, Object, NewInventory),
-	modify_inventory(NewInventory),
+	paste_inventory(NewInventory),
 
 	write('Your sanity has been increased by 10.'), nl,
     write('You used 1 mukjizat.'), nl, !.

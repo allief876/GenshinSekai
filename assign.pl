@@ -1,7 +1,7 @@
 /* assignments(N_Praktikum, N_Tubes, N_UTS, N_UAS).
    player_progress(N_Praktikum, N_Tubes, N_UTS, N_UAS). */
 
-/* assign tugas per semester, diambil di Quest */
+/* assign tugas per semester, diambil di T */
 
 assign :-
     /* semester 1 */

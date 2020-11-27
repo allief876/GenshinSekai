@@ -15,7 +15,6 @@
 
 /* Inventaris pemain */
 :- dynamic(player_inventory/1).     player_inventory([]).
-
 :- dynamic(equipment/1).            equipment(bare_hands).
 
 /* Fakta terkait map */

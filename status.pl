@@ -1,11 +1,11 @@
 /* File: status.pl */
-/* NIM / Nama: 13519221 / Allief Nuriman */
+/* NIM - Nama: 13519221 - Allief Nuriman */
 /* Menampilkan status player */
 
 /* status */
 status :-
     game_running(false),
-    write('Start dulu gamenya, koplak!'),nl,!.
+    write('Please start the game first.'),nl,!.
 
 status :-
 
