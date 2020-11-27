@@ -20,7 +20,8 @@ help :-
         write('13. sleep -> Tidur'),nl,
         write('14. shop -> Mengakses toko'),nl,
         write('15. assign -> Meminta quest'),nl,
-        write('16. help -> Menampilkan ini'),nl,
-        write('17. save(Filename) -> Menyimpan game'),nl,
-        write('18. load_game(Filename) -> Meload game'),nl,
-        write('19. exit -> Keluar dari game'),nl,!.
+        write('16. fAss -> Mengerjakan TA, hanya bisa di L'),nl,
+        write('17. help -> Menampilkan ini'),nl,
+        write('18. save(Filename) -> Menyimpan game'),nl,
+        write('19. load_game(Filename) -> Meload game'),nl,
+        write('20. exit -> Keluar dari game'),nl,!.

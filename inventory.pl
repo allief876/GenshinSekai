@@ -6,15 +6,31 @@ inventory :-
 
 show_inventory :-
     player_inventory(Inventory),
-    print_inventory(Inventory),!.
+    my_equipment(Inventory, Equipments),
+    print_inventory(Equipments),
+    print_mukjizat(Inventory),!.
 
 print_inventory(Inventory):- 
     Inventory = [], !.
 
 print_inventory(Inventory):- 
     [Head|Tail] = Inventory,
-    format(" -  ~p \n", [Head]),
+    format(' - ~p\n', [Head]),
     print_inventory(Tail).
+
+print_mukjizat(Inventory) :-
+    count_inventory(Inventory, 'Mukjizat', N),
+    format(' - Mukjizat (x~p)\n',[N]),!.
+    
+count_inventory([], Item, 0).
+    
+count_inventory([Item|Tail], Item, N) :-
+    count_inventory(Tail,Item,N1),
+    N is N1+1.
+    
+count_inventory([Head|Tail], Item, N) :-
+    Head \== Item,
+    count_inventory(Tail,Item,N).
 
 /* hapus barang dari inventory */
 
