@@ -34,9 +34,9 @@ shop :-
     format('1. Buy Mukjizat (~p gold, It replenishes your sanity!)\n', [Price]),
     write('2. Sell Equipment (50 gold)'),nl,
     write('> '),
-    read(Choice),
+    read(Choice),!,
     
-    executeShop(Choice),!.
+    executeShop(Choice).
 
 executeShop(1) :-
     player_pos(X,Y),

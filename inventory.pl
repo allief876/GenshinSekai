@@ -6,9 +6,17 @@ inventory :-
 
 show_inventory :-
     player_inventory(Inventory),
+    length(Inventory, Length),
+    Length > 0,
     my_equipment(Inventory, Equipments),
     print_inventory(Equipments),
     print_mukjizat(Inventory),!.
+    
+show_inventory :-
+    player_inventory(Inventory),
+    length(Inventory, Length),
+    Length = 0,
+    write('[Your inventory is empty.]'),nl,!.
 
 print_inventory(Inventory):- 
     Inventory = [], !.
@@ -20,7 +28,12 @@ print_inventory(Inventory):-
 
 print_mukjizat(Inventory) :-
     count_inventory(Inventory, 'Mukjizat', N),
+    N > 0,
     format(' - Mukjizat (x~p)\n',[N]),!.
+    
+print_mukjizat(Inventory) :-
+    count_inventory(Inventory, 'Mukjizat', N),
+    N = 0.
     
 count_inventory([], Item, 0).
     

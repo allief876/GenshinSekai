@@ -8,7 +8,7 @@ sleep :-
     write('1. Equipment (100 gold)'),nl,
     write('2. Sanity    (Min. 3 gold)'),nl,
     write('> '),
-    read(Input),
+    read(Input),!,
     executeSleep(Input).
     
 sleep :-

@@ -1,25 +1,3 @@
-w(1) :-
-    game_running(true),
-    in_test_room(false),
-    player_pos(Y,X),
-    New_Y is Y-1,
-    valid_move(New_Y, X),!,
-    retract(player_pos(Y, X)),
-    asserta(player_pos(New_Y, X)),
-    generate_monster.
-
-w(N) :-
-    game_running(true),
-    in_test_room(false),
-    player_pos(Y,X),
-    New_Y is Y-1,
-    valid_move(New_Y, X),!,
-    retract(player_pos(Y, X)),
-    asserta(player_pos(New_Y, X)),
-    N1 is N-1,
-    generate_monster,
-    w(N1).
-
 w :-
     game_running(true),
     in_test_room(false),
@@ -30,28 +8,6 @@ w :-
     asserta(player_pos(New_Y, X)),
     generate_monster.
     
-a(1) :-
-    game_running(true),
-    in_test_room(false),
-    player_pos(Y,X),
-    New_X is X-1,
-    valid_move(Y, New_X),!,
-    retract(player_pos(Y, X)),
-    asserta(player_pos(Y, New_X)),
-    generate_monster.
-
-a(N) :-
-    game_running(true),
-    in_test_room(false),
-    player_pos(Y,X),
-    New_X is X-1,
-    valid_move(Y, New_X),!,
-    retract(player_pos(Y, X)),
-    asserta(player_pos(Y, New_X)),
-    N1 is N-1,
-    generate_monster,
-    a(N1).
-
 a :-
     game_running(true),
     in_test_room(false),
@@ -62,28 +18,6 @@ a :-
     asserta(player_pos(Y, New_X)),
     generate_monster.
     
-s(1) :-
-    game_running(true),
-    in_test_room(false),
-    player_pos(Y,X),
-    New_Y is Y+1,
-    valid_move(New_Y, X),!,
-    retract(player_pos(Y, X)),
-    asserta(player_pos(New_Y, X)),
-    generate_monster.
-
-s(N) :-
-    game_running(true),
-    in_test_room(false),
-    player_pos(Y,X),
-    New_Y is Y+1,
-    valid_move(New_Y, X),!,
-    retract(player_pos(Y, X)),
-    asserta(player_pos(New_Y, X)),
-    N1 is N-1,
-    generate_monster,
-    s(N1).
-
 s :-
     game_running(true),
     player_pos(Y,X),
@@ -92,28 +26,6 @@ s :-
     retract(player_pos(Y, X)),
     asserta(player_pos(New_Y, X)),
     generate_monster.
-
-d(1) :-
-    game_running(true),
-    in_test_room(false),
-    player_pos(Y,X),
-    New_X is X+1,
-    valid_move(Y, New_X),!,
-    retract(player_pos(Y, X)),
-    asserta(player_pos(Y, New_X)),
-    generate_monster.
-    
-d(N) :-
-    game_running(true),
-    in_test_room(false),
-    player_pos(Y,X),
-    New_X is X+1,
-    valid_move(Y, New_X),!,
-    retract(player_pos(Y, X)),
-    asserta(player_pos(Y, New_X)),
-    N1 is N-1,
-    generate_monster,
-    d(N1).
 
 d :-
     game_running(true),

@@ -57,7 +57,7 @@
 start :-
     init_player,
     init_itb,
-    init_equipments,
+    init_equipments,!,
     game_running(false),
     retract(game_running(false)),
     asserta(game_running(true)),

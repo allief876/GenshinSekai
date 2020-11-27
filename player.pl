@@ -26,8 +26,7 @@ init_player :-
     set_faculty(X),
     player_faculty(Fakultas),
     asserta(tugas_akhir_status(8, 250, 250, 3140)),
-    format('Congratulations, your application has been accepted! Welcome to ~p ITB!\n',[Fakultas]), nl,
-    write('Selanjutnya, ambil tugas Anda di L untuk melanjutkan permainan!').
+    format('Congratulations, your application has been accepted! Welcome to ~p ITB!\n',[Fakultas]).
     
 set_faculty(1) :-
     /* pemain memilih STEI */
@@ -39,7 +38,7 @@ set_faculty(1) :-
     asserta(player_luck(15)),
     asserta(player_sanity(70)),
     asserta(player_max_sanity(70)),
-    asserta(player_gold(600)).
+    asserta(player_gold(0)).
     
 set_faculty(2) :-
     /* pemain memilih FMIPA */
