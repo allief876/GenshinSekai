@@ -358,9 +358,7 @@ update_status(_,New_P_sanity,player) :-
     
     New_P_sanity =< 0,
     
-    game_over,!,
-    
-    write('\nYou lost!'),nl.
+    game_over,!.
 
 update_status(New_M_progress,New_P_sanity,_) :-
     /* belum menang */

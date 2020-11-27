@@ -12,7 +12,8 @@ assign :-
     P_semester == 1, !,
     retract(assigns_finished(_)),
     asserta(assigns_finished(false)),
-    \+ assignments(_,_,_,_),
+    assignments(0,0,0,0),
+    retract(assignments(0,0,0,0)),
     asserta(assignments(2,0,1,1)), !,
     write('New tasks:'),nl,nl,
     write('Praktikum        : 2'),nl,
@@ -29,7 +30,8 @@ assign :-
     P_semester == 2, !,
     retract(assigns_finished(_)),
     asserta(assigns_finished(false)),
-    \+ assignments(_,_,_,_),
+    assignments(0,0,0,0),
+    retract(assignments(0,0,0,0)),
     asserta(assignments(3,0,1,1)), !,
     write('New tasks:'),nl,nl,
     write('Praktikum        : 3'),nl,
@@ -46,7 +48,8 @@ assign :-
     P_semester == 3, !,
     retract(assigns_finished(_)),
     asserta(assigns_finished(false)),
-    \+ assignments(_,_,_,_),
+    assignments(0,0,0,0),
+    retract(assignments(0,0,0,0)),
     asserta(assignments(3,1,1,1)), !,
     write('New tasks:'),nl,nl,
     write('Praktikum        : 3'),nl,
@@ -63,7 +66,8 @@ assign :-
     P_semester == 4, !,
     retract(assigns_finished(_)),
     asserta(assigns_finished(false)),
-    \+ assignments(_,_,_,_),
+    assignments(0,0,0,0),
+    retract(assignments(0,0,0,0)),
     asserta(assignments(3,1,1,1)), !,
     write('New tasks:'),nl,nl,
     write('Praktikum        : 3'),nl,
@@ -80,7 +84,8 @@ assign :-
     P_semester == 5, !,
     retract(assigns_finished(_)),
     asserta(assigns_finished(false)),
-    \+ assignments(_,_,_,_),
+    assignments(0,0,0,0),
+    retract(assignments(0,0,0,0)),
     asserta(assignments(3,2,1,1)), !,
     write('New tasks:'),nl,nl,
     write('Praktikum        : 3'),nl,
@@ -97,7 +102,8 @@ assign :-
     P_semester == 6, !,
     retract(assigns_finished(_)),
     asserta(assigns_finished(false)),
-    \+ assignments(_,_,_,_),
+    assignments(0,0,0,0),
+    retract(assignments(0,0,0,0)),
     asserta(assignments(3,2,1,1)), !,
     write('New tasks:'),nl,nl,
     write('Praktikum        : 3'),nl,
@@ -114,7 +120,8 @@ assign :-
     P_semester == 7, !,
     retract(assigns_finished(_)),
     asserta(assigns_finished(false)),
-    \+ assignments(_,_,_,_),
+    assignments(0,0,0,0),
+    retract(assignments(0,0,0,0)),
     asserta(assignments(3,3,1,1)), !,
     write('New tasks:'),nl,nl,
     write('Praktikum        : 3'),nl,
@@ -131,7 +138,8 @@ assign :-
     P_semester == 8, !,
     retract(assigns_finished(_)),
     asserta(assigns_finished(false)),
-    \+ assignments(_,_,_,_),
+    assignments(0,0,0,0),
+    retract(assignments(0,0,0,0)),
     asserta(assignments(2,2,1,1)), !,
     write('New tasks:'),nl,nl,
     write('Praktikum        : 2'),nl,
@@ -212,18 +220,29 @@ add_progress(uas) :-
 /* pengecekan apakah assignments sudah terpenuhi */
 
 finish_assignments :-
-    /* tugas cukup */
-    assigns_finished(IsFinished),
-    IsFinished == false,
+    /* tidak ada assignment */
+    assigns_finished(false),
 
     assignments(N_Praktikum, N_Tubes, N_UTS, N_UAS),
-    retract(assignments(N_Praktikum, N_Tubes, N_UTS, N_UAS)),
-    player_progress(P_Praktikum, P_Tubes, P_UTS, P_UAS),
-    P_Praktikum >= N_Praktikum,!,
-    P_Tubes >= N_Tubes,!,
-    P_UTS >= N_UTS,!,
-    P_UAS >= N_UAS,!,
+    N_Praktikum = 0,
+    N_Tubes = 0,
+    N_UTS = 0,
+    N_UAS = 0,!.
 
+finish_assignments :-
+    /* tugas cukup */
+    assigns_finished(false),
+
+    assignments(N_Praktikum, N_Tubes, N_UTS, N_UAS),
+    player_progress(P_Praktikum, P_Tubes, P_UTS, P_UAS),
+    P_Praktikum >= N_Praktikum,
+    P_Tubes >= N_Tubes,
+    P_UTS >= N_UTS,
+    P_UAS >= N_UAS,!,
+    
+    retract(assignments(N_Praktikum, N_Tubes, N_UTS, N_UAS)),
+    asserta(assignments(0,0,0,0)),
+    
     retract(assigns_finished(_)),
     asserta(assigns_finished(true)),
     write('You have finished your assignments!'), nl,
@@ -242,8 +261,7 @@ finish_assignments :-
 
 finish_assignments :-
     /* tugas belum cukup */
-    assigns_finished(IsFinished),
-    IsFinished == false,
+    assigns_finished(false),
 
     assignments(N_Praktikum, N_Tubes, N_UTS, N_UAS),
     player_progress(P_Praktikum, P_Tubes, P_UTS, P_UAS),

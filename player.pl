@@ -33,7 +33,7 @@ set_faculty(1) :-
     
     asserta(player_faculty('STEI')),
     asserta(player_semester(1)),
-    asserta(equipment('ArsipTPB')),
+    asserta(equipment('Arsip TPB')),
     asserta(player_intelligence(14)),
     asserta(player_luck(15)),
     asserta(player_sanity(70)),
@@ -57,7 +57,7 @@ set_faculty(3) :-
     
     asserta(player_faculty('FTTM')),
     asserta(player_semester(1)),
-    asserta(equipment('JaketAngkatan')),
+    asserta(equipment('Jaket angkatan')),
     asserta(player_intelligence(12)),
     asserta(player_luck(18)),
     asserta(player_sanity(80)),

@@ -21,7 +21,6 @@
 
 /* Fakta terkait map */
 :- dynamic(player_pos/2).			player_pos(0,0).
-:- dynamic(map_items/1).			map_items(0).
 :- dynamic(itb/3).
 
 /* Fakta terkait battle */
@@ -77,4 +76,7 @@ game_over :-
     retract(turn(_)),
     asserta(turn(0)),
     retract(last_cheat(_)),
-    asserta(last_cheat(0)),!.
+    asserta(last_cheat(0)),!,
+    
+    write('\nDue to stressful exams and deadlines, your sanity has dropped to 0.'),nl,nl,
+    write('You have dropped out of itb!'),nl.

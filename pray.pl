@@ -26,7 +26,7 @@ pray :-
 	player_sanity(Sanity),
 	player_max_sanity(P_max_sanity),
 	player_semester(Sem),
-	Add_sanity is round(10*(1.5**Sem)),
+	Add_sanity is round(5*(1.5**Sem)),
 	Temp_sanity is Sanity + Add_sanity,
 	Temp_sanity > P_max_sanity, !,
 	
