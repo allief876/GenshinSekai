@@ -37,17 +37,14 @@
 
 /*** ============= INCLUDE OTHER FILE ============= ***/
 
-/* :- include(start). */
 :- include(inventory).
 :- include(help).
 :- include(map).
 :- include(player).
 :- include(battle).
 :- include(sleep).
-/* :- include(save). */
 :- include(status).
 :- include(shop).
-/* :- include(load). */
 :- include(move).
 :- include(pray).
 :- include(assign).

@@ -18,7 +18,5 @@ help :-
         write('11. sleep'),nl,
         write('12. shop'),nl,
         write('13. assign'),nl,
-        write('14. save(nama_file)'),nl,
-        write('15. load(nama_file)'),nl,
-        write('16. help'),nl,
-        write('17. exit'),nl,!.
+        write('14. help'),nl,
+        write('15. exit'),nl,!.
