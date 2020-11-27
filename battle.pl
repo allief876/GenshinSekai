@@ -33,6 +33,8 @@ answer :-
     New_T is T+1,
     retract(last_cheat(T)),
     asserta(last_cheat(New_T)),
+    retract(prayed(_)),
+    asserta(prayed(false)),
     
     format('You answered ~p points!\n', [M_damage]),!,
     monster_attack.
@@ -60,6 +62,8 @@ answer :-
     New_T is T+1,
     retract(last_cheat(T)),
     asserta(last_cheat(New_T)),
+    retract(prayed(_)),
+    asserta(prayed(false)),
     
     format('You answered ~p points!\n', [M_damage]),!,
     update_status(New_M_progress,P_sanity,monster).
@@ -96,7 +100,9 @@ cheat :-
     update_status(New_M_progress, P_sanity,monster),!,
     
     retract(last_cheat(T)),
-    asserta(last_cheat(0)),!,
+    asserta(last_cheat(0)),
+    retract(prayed(_)),
+    asserta(prayed(false)),!,
     
     format('You cheated and answered ~p points!\n', [M_damage]),
     monster_attack.
@@ -124,7 +130,9 @@ cheat :-
     New_M_progress < 1,!,
     
     retract(last_cheat(T)),
-    asserta(last_cheat(0)),!,
+    asserta(last_cheat(0)),
+    retract(prayed(_)),
+    asserta(prayed(false)),!,
     
     format('You cheated and answered ~p points!\n', [M_damage]),
     update_status(New_M_progress,P_sanity,monster).
@@ -244,6 +252,9 @@ sekip :-
     
     retract(turn(_)),
     asserta(turn(0)),
+    retract(last_cheated(_)),
+    asserta(last_cheated(0)),
+    retract(prayed(_)),
     
     format('You successfully skipped your ~p!',[M_type]),nl,!.
     
@@ -296,6 +307,14 @@ update_status(New_M_progress,New_P_sanity,monster) :-
     least(GPA2, 1, GPA3),
     GPA is GPA3*4,!,
     
+    retract(turn(_)),
+    asserta(turn(0)),
+    
+    retract(last_cheat(_)),
+    asserta(last_cheat(0)),!,
+    
+    retract(prayed(_)),
+    
     graduate(GPA),!.
     
     
@@ -330,13 +349,15 @@ update_status(New_M_progress,New_P_sanity,monster) :-
     retract(player_gold(Gold)),
     asserta(player_gold(New_gold)),
     
-    win_battle(M_type),
+    format('\nYou finished your ~p.\n',[M_type]),
     
     retract(turn(_)),
     asserta(turn(0)),
     
     retract(last_cheat(_)),
     asserta(last_cheat(0)),!,
+    
+    retract(prayed(_)),
 
     player_sks(SKS),
     New_sks is SKS + 1,
@@ -375,11 +396,6 @@ update_status(New_M_progress,New_P_sanity,_) :-
     player_sanity(P_sanity),
     retract(player_sanity(P_sanity)),
     asserta(player_sanity(New_P_sanity)),!.
-    
-    
-win_battle(M_type) :-
-    game_running(true),
-    format('\nYou finished your ~p \n',[M_type]).
 
 tugas_akhir_max_sanity(3500).
 

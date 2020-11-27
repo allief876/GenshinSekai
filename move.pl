@@ -162,6 +162,7 @@ generate_monster :-
     asserta(in_test_room(true)),
     format('It\'s time for ~p! Entering test room...\n\n',[Type]),
     asserta(monster_status(Type, P_sem, M_atk, M_def, M_progress)),
+    asserta(prayed(false)),
     monster_status,!.
 
 generate_monster.

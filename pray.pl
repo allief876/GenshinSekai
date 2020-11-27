@@ -3,6 +3,7 @@ pray :-
     
     game_running(true),
     in_test_room(true),
+    prayed(false),
     
 	player_inventory(Inventory),
 	search_inventory(Inventory, 'Mukjizat', D),
@@ -18,6 +19,7 @@ pray :-
     
     game_running(true),
     in_test_room(true),
+    prayed(false),
     
 	player_inventory(Inventory),
 	search_inventory(Inventory, 'Mukjizat', D),
@@ -36,6 +38,9 @@ pray :-
 
 	delete_inventory(Inventory, 'Mukjizat', NewInventory),
 	paste_inventory(NewInventory),
+	
+	retract(prayed(false)),
+	asserta(prayed(true)),
 
 	format("Your sanity has been increased by ~p.", [New_sanity]),
 	write('You used 1 mukjizat.'), nl, !.
@@ -45,6 +50,7 @@ pray :-
     
     game_running(true),
     in_test_room(true),
+    prayed(false),
     
 	player_inventory(Inventory),
 	search_inventory(Inventory, 'Mukjizat', D),
@@ -62,6 +68,9 @@ pray :-
 
 	delete_inventory(Inventory, 'Mukjizat', NewInventory),
 	paste_inventory(NewInventory),
+	
+	retract(prayed(false)),
+	asserta(prayed(true)),
 
 	format('Your sanity has been increased by ~p.\n',[Add_sanity]),
     write('You used 1 mukjizat.'), nl, !.
@@ -71,12 +80,23 @@ pray :-
     
     game_running(true),
     in_test_room(true),
+    prayed(false),
     
 	player_inventory(Inventory),
 	search_inventory(Inventory, 'Mukjizat', D),
     D \== 1, !,
 	
 	write('Too bad, you don\'t have a miracle...'), nl, !.
+	
+pray :-
+	/* pray untuk isi ulang sanity pakai mukjizat, baru pakai mukjizat */
+    
+    game_running(true),
+    in_test_room(true),
+    prayed(true),
+    
+    write('You just prayed! Now is the time to answer!'),nl,!.
+    
 
 pray :-
     /* pray di luar battle screen */

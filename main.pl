@@ -29,6 +29,7 @@
 :- dynamic(in_test_room/1).         in_test_room(false).
 :- dynamic(turn/1).                 turn(0).
 :- dynamic(last_cheat/1).           last_cheat(0).
+:- dynamic(prayed/1).
 
 /* Fakte terkait tugas dan sks */
 :- dynamic(assignments/4).          assignments(0,0,0,0).
@@ -76,7 +77,8 @@ game_over :-
     retract(turn(_)),
     asserta(turn(0)),
     retract(last_cheat(_)),
-    asserta(last_cheat(0)),!,
+    asserta(last_cheat(0)),
+    retract(prayed(_)),!,
     
     write('\nDue to stressful exams and deadlines, your sanity has dropped to 0.'),nl,nl,
     write('You have dropped out of itb!'),nl.
