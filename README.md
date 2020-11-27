@@ -2,11 +2,13 @@
 Tugas Besar IF2121 Logika Komputasional 2020-01
 
 ## Cara Pakai
-1. Install GNU Prolog, kalo  ga punya ya ga bisa
-2. Download repository ini
-3. Consult main.pl
-4. Jalankan help. biar tahu cara mainnya
-5. Udah.
+Dilakukan di Windows 10.
+1. Pasang GNU Prolog di Komputer Anda disini http://www.gprolog.org/#download
+2. Download repository ini, di bagian Code (Pojok kanan atas) ada bagian untuk mengunduhnya.
+3. Buka GNU Prolog, lalu consult main.pl.
+4. Untuk mengetahui command-command yang bisa dipakai, jalankan "help." tanpa tanda kutip.
+5. Jalankan "start." untuk memulai permainan.
+6. Selamat bermain! Semoga menang.
 
 ## Kisah
 Alkisah Anda adalah seorang mahasiswa di ITB yang hanya dapat memilih 3 fakultas di antaranya, Anda harus dapat melewati perkuliahan dengan intensitas tinggi dan dapat membuat Anda gila.
