@@ -35,7 +35,7 @@ shop :-
 
 potion :-
     player_gold(X),
-    X < 200,
+    X < 5,
     write("You don't have enough gold."),nl,!.
 
 potion :-
