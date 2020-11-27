@@ -161,6 +161,7 @@ generate_monster :-
     retract(in_test_room(false)),
     asserta(in_test_room(true)),
     format('It\'s time for ~p! Entering test room...\n\n',[Type]),
+    write('You can choose to answer, pray, cheat, or sekip.'), nl,
     asserta(monster_status(Type, P_sem, M_atk, M_def, M_progress)),
     asserta(prayed(false)),
     monster_status,!.

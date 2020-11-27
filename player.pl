@@ -38,7 +38,7 @@ set_faculty(1) :-
     asserta(player_luck(15)),
     asserta(player_sanity(70)),
     asserta(player_max_sanity(70)),
-    asserta(player_gold(0)).
+    asserta(player_gold(600)).
     
 set_faculty(2) :-
     /* pemain memilih FMIPA */
