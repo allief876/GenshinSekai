@@ -35,7 +35,7 @@ print_mukjizat(Inventory) :-
     count_inventory(Inventory, 'Mukjizat', N),
     N = 0.
     
-count_inventory([], Item, 0).
+count_inventory([], _, 0).
     
 count_inventory([Item|Tail], Item, N) :-
     count_inventory(Tail,Item,N1),
