@@ -105,6 +105,7 @@ save(Filename):-
 	write(Stream, X), 			    write(Stream, '.'), nl(Stream),
 	write(Stream, Y), 		    	write(Stream, '.'), nl(Stream),
 	write(Stream, Semester), 		write(Stream, '.'), nl(Stream),
+	write(Stream, SKS),             write(Stream, '.'), nl(Stream),
 	write(Stream, Intelligence),    write(Stream, '.'), nl(Stream),
 	write(Stream, Max_SKS), 		write(Stream, '.'), nl(Stream),
 	write(Stream, Equipment), 		write(Stream, '.'), nl(Stream),
