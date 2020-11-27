@@ -17,6 +17,7 @@ init_player :-
     retract(player_luck(_)),
     retract(player_sanity(_)),
     retract(player_max_sanity(_)),
+    retract(player_sks(_)),
     retract(player_max_sks(_)),
     retract(player_gold(_)),
     asserta(player_pos(0,0)),
@@ -24,6 +25,7 @@ init_player :-
     asserta(player_max_sks(18)),
     set_faculty(X),
     player_faculty(Fakultas),
+    asserta(tugas_akhir_status(8, 250, 250, 3140)),
     format('Congratulations, your application has been accepted! Welcome to ~p ITB!',[Fakultas]).
     
 set_faculty(1) :-
@@ -71,6 +73,10 @@ status(P_semester, P_intelligence, P_luck, P_sanity) :-
     player_sanity(P_sanity).
 
 status :-
+    game_running(true),
+    
+    write('Your status:'),nl,nl,
+    faculty,!,
     semester,!,
     sanity,!,
     intelligence,!,
@@ -78,36 +84,45 @@ status :-
     sks,!,
     wallet,!.
 
+status :-
+    game_running(false),
+    
+    write('Please start the game first.'),nl,!.
+
+faculty :-
+    player_faculty(P_faculty),
+    format('Faculty             : ~p\n',[P_faculty]).
+
 semester :- 
     player_semester(P_semester),
-    format('Semester: ~p\n', [P_semester]).
-
-sks :-
-    player_sks(P_sks),
-    player_max_sks(P_max_sks),
-    format('SKS: ~p/~p\n',[P_sks, P_max_sks]).
+    format('Semester            : ~p\n', [P_semester]).
     
 sanity :-
     player_sanity(P_sanity),
     player_max_sanity(P_max_sanity),
-    format('Sanity: ~p/~p\n', [P_sanity, P_max_sanity]).
+    format('Sanity              : ~p/~p\n', [P_sanity, P_max_sanity]).
     
 intelligence :-
     player_intelligence(P_intelligence),
-    format('Intelligence: ~p\n', [P_intelligence]).
+    format('Intelligence        : ~p\n', [P_intelligence]).
     
 luck :-
     player_luck(P_luck),
-    format('Luck: ~p\n', [P_luck]).
+    format('Luck                : ~p\n', [P_luck]).
+
+sks :-
+    player_sks(P_sks),
+    player_max_sks(P_max_sks),!,
+    format('SKS                 : ~p/~p\n',[P_sks, P_max_sks]).
 
 wallet :-
     player_gold(P_gold),
-    format('Gold: ~p\n', [P_gold]).
+    format('Gold                : ~p\n', [P_gold]).
     
 monster_status :-
     monster_status(M_type,M_semester,M_attack,M_defense,M_progress),
-    format('Type: ~p\n',[M_type]),
-    format('Semester: ~p\n',[M_semester]),
-    format('Stress Rating: ~p\n',[M_attack]),
-    format('Difficulty: ~p\n',[M_defense]),
-    format('Points Remaining: ~p\n',[M_progress]).
+    format('Type                : ~p\n',[M_type]),
+    format('Semester            : ~p\n',[M_semester]),
+    format('Stress Rating       : ~p\n',[M_attack]),
+    format('Difficulty          : ~p\n',[M_defense]),
+    format('Points Remaining    : ~p\n',[M_progress]).

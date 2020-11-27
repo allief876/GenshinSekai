@@ -131,6 +131,7 @@ getType(praktikum,1).
 getType(tubes,2).
 getType(uts,3).
 getType(uas,4).
+getType(ta,5).
     
 generate_monster :-
     game_running(true),
@@ -159,8 +160,9 @@ generate_monster :-
     
     retract(in_test_room(false)),
     asserta(in_test_room(true)),
-    format('It\'s time for ~p! Entering test room...\n',[Type]),
-    asserta(monster_status(Type, P_sem, M_atk, M_def, M_progress)),!.
+    format('It\'s time for ~p! Entering test room...\n\n',[Type]),
+    asserta(monster_status(Type, P_sem, M_atk, M_def, M_progress)),
+    monster_status,!.
 
 generate_monster.
 

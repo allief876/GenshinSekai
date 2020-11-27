@@ -224,6 +224,38 @@ sekip :-
     
     write('No tests nearby.'),nl,!.
     
+update_status(New_M_progress,New_P_sanity,ta) :-
+    /* menang ta */
+    
+    game_running(true),
+    in_test_room(true),
+    
+    New_P_sanity > 0,
+    New_M_progress =< 0,!,
+    monster_status(_, M_semester, M_attack, _, _),
+    retract(monster_status(_, M_semester, M_attack, _, _)),
+    
+    tugas_akhir_status(TA_semester, TA_attack, TA_defense, TA_progress),
+    retract(tugas_akhir_status(TA_semester, TA_attack, TA_defense, TA_progress)),
+    asserta(tugas_akhir_status(TA_semester, TA_attack, TA_defense, 0)),
+    
+    player_semester(P_semester),
+    player_sanity(P_sanity),
+    player_max_sanity(P_max_sanity),
+    player_intelligence(P_intelligence),
+    player_luck(P_luck),
+    GPA1 is P_sanity/P_max_sanity,
+    Bias is P_intelligence/P_luck,
+    GPA1 is GPA1+Bias,
+    GPA1 is GPA1*100,
+    GPA1 is round(GPA1),
+    GPA1 is GPA1/100,
+    GPA is least(GPA1, 1, GPA),
+    GPA is GPA*4,!,
+    
+    graduate(GPA),!.
+    
+    
 update_status(New_M_progress,New_P_sanity,monster) :-
     /* menang */
     
@@ -231,20 +263,19 @@ update_status(New_M_progress,New_P_sanity,monster) :-
     in_test_room(true),
     
     New_P_sanity > 0,
-    New_M_progress =< 0,
-    monster_status(_, M_semester, _, M_defense, _),
-    retract(monster_status(_, M_semester, _, M_defense, _)),
-    player_intelligence(P_intelligence),
+    New_M_progress =< 0,!,
+    monster_status(_, M_semester, M_attack, _, _),
+    retract(monster_status(_, M_semester, M_attack, _, _)),
+    player_luck(P_luck),
     
     retract(in_test_room(true)),
     asserta(in_test_room(false)),
     
     player_gold(Gold),
-    Add_gold1 is M_semester*10,
+    calc_damage(M_attack, P_luck, Add_gold1),
     getType(M_type,X),
-    Add_gold2 is Add_gold1+2*X,
-    Add_gold3 is Add_gold2+M_defense,
-    Add_gold is Add_gold3-P_intelligence,
+    Add_gold2 is Add_gold1-M_semester,
+    Add_gold is Add_gold2+X*3,
     New_gold is Gold+Add_gold,
     retract(player_gold(Gold)),
     asserta(player_gold(New_gold)),
@@ -260,7 +291,7 @@ update_status(New_M_progress,New_P_sanity,monster) :-
     player_sks(SKS),
     New_sks is SKS + 1,
     retract(player_sks(SKS)),
-    asserta(player_sks(New_sks)),
+    asserta(player_sks(New_sks)),!,
     
     format('~p gold added to wallet.\n',[Add_gold]),
     format('You get an extra SKS, current total: ~p SKS.\n',[New_sks]),
@@ -277,7 +308,7 @@ update_status(_,New_P_sanity,player) :-
     
     New_P_sanity =< 0,
     
-    game_over,
+    game_over,!,
     
     write('You lost!'),nl.
 
@@ -301,4 +332,61 @@ update_status(New_M_progress,New_P_sanity,_) :-
 update_tugas(M_type) :-
     game_running(true),
     format('You finished your ~p \n',[M_type]).
+
+tugas_akhir_max_sanity(3500).
+
+fAss :-
+    /* mulai pengerjaan tugas akhir (final assignment) */
+    
+    game_running(true),
+    player_pos(X,Y),
+    itb(lab,X,Y),!,
+    
+    tugas_akhir_status(TA_semester, TA_attack, TA_defense, TA_progress),
+    asserta(monster_status(ta, TA_semester, TA_attack, TA_defense, TA_progress)),
+    
+    retract(in_test_room(false)),
+    asserta(in_test_room(true)),
+    
+    write('Get ready to do your Final Assignment!'),nl,nl,
+    format('Semester            : ~p\n',[TA_semester]),
+    format('Stress rating       : ~p\n',[TA_attack]),
+    format('Difficulty          : ~p\n',[TA_defense]),
+    format('Points remaining    : ~p\n',[TA_progress]).
+    
+fAss :-
+    /* tidak di lab */
+    
+    game_running(true),
+    player_pos(X,Y),
+    \+ itb(lab,X,Y),
+    
+    write('Your Final Assignment can only be done in the Lab (L)!'),nl,!.
+    
+graduate(GPA) :-
+    /* cum laude */
+    
+    GPA > 3.5,!,
+    write('Congratulations! You completed your Final Assignment!'),nl,nl,
+    format('Graduating with a ~p GPA, ', [GPA]),
+    write('you obtain the honor of Cum Laude!'),nl,
+    write('Good luck in the real world!'),nl,!.
+    
+graduate(GPA) :-
+    /* sangat memuaskan */
+    
+    GPA > 2.5,!,
+    write('Congratulations! You completed your Final Assignment!'),nl,nl,
+    format('Graduating with a ~p GPA, ', [GPA]),
+    write('you obtain the honor of Highly Satisfactory!'),nl,
+    write('Good luck in the real world!'),nl,!.
+    
+graduate(GPA) :-
+    /* memuaskan */
+    
+    write('Congratulations! You completed your Final Assignment!'),nl,nl,
+    format('Graduating with a ~p GPA, ', [GPA]),
+    write('you obtain the honor of Satisfactory!'),nl,
+    write('Good luck in the real world!'),nl,!.
+    
     

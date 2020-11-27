@@ -15,6 +15,7 @@
 
 /* Inventaris pemain */
 :- dynamic(player_inventory/1).     player_inventory([]).
+
 :- dynamic(equipment/1).            equipment(bare_hands).
 
 /* Fakta terkait map */
@@ -30,24 +31,25 @@
 :- dynamic(last_cheat/1).           last_cheat(0).
 
 /* Fakte terkait tugas dan sks */
-:- dynamic(assignments/4).          assignments(0,0,0,0).
+:- dynamic(assignments/4).
 :- dynamic(player_progress/4).      player_progress(0,0,0,0).
 :- dynamic(assigns_finished/1).     assigns_finished(false).
-:- dynamic(is_ngerjain_ta/1).       is_ngerjain_ta(false).
 
 /*** ============= INCLUDE OTHER FILE ============= ***/
 
+/* :- include(start). */
 :- include(inventory).
 :- include(help).
 :- include(map).
 :- include(player).
 :- include(battle).
 :- include(sleep).
+/* :- include(save). */
 :- include(status).
 :- include(shop).
+/* :- include(load). */
 :- include(move).
 :- include(pray).
-:- include(save_load).
 :- include(assign).
 :- include(exit).
 
@@ -59,10 +61,6 @@ start :-
     game_running(false),
     retract(game_running(false)),
     asserta(game_running(true)).
-
-win :-
-    is_ngerjain_ta(true),
-    write('Congratulations! You won the game! Selamat mencari kerja!'),nl.
 
 game_over :-
     game_running(true),
