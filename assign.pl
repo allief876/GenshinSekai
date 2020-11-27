@@ -159,7 +159,7 @@ assign :-
     write('Pick up your assignments at Tugas (T)!'),nl,!.
     
 assign :-
-    game_running(false).
+    game_running(false),
     
     write('Please start the game first.'),nl,!.
 

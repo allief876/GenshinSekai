@@ -7,7 +7,7 @@ sleep :-
     write('What do you wish for:'),nl,nl,
     write('1. Equipment (100 gold)'),nl,
     write('2. Sanity    (Min. 3 gold)'),nl,
-    
+    write('> '),
     read(Input),
     executeSleep(Input).
     
@@ -48,7 +48,7 @@ executeSleep(1) :-
     itb(kos,X,Y),
     
     player_gold(Gold),
-    Gold < 3,
+    Gold < 100,
     
     write('Not enough gold.'),nl,!.
  

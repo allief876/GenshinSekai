@@ -263,16 +263,16 @@ sekip :-
     
     write('No tests nearby.'),nl,!.
     
-update_status(New_M_progress,New_P_sanity,ta) :-
+update_status(New_M_progress,New_P_sanity,monster) :-
     /* menang ta */
     
     game_running(true),
     in_test_room(true),
     
     New_P_sanity > 0,
-    New_M_progress =< 0,!,
-    monster_status(_, M_semester, M_attack, _, _),
-    retract(monster_status(_, M_semester, M_attack, _, _)),
+    New_M_progress =< 0,
+    monster_status(ta, M_semester, M_attack, _, _),
+    retract(monster_status(ta, M_semester, M_attack, _, _)),
     
     tugas_akhir_status(TA_semester, TA_attack, TA_defense, TA_progress),
     retract(tugas_akhir_status(TA_semester, TA_attack, TA_defense, TA_progress)),
@@ -291,12 +291,10 @@ update_status(New_M_progress,New_P_sanity,ta) :-
     
     GPA1 is P_sanity/P_max_sanity,
     Bias is P_int_use/P_luck_use,
-    GPA1 is GPA1+Bias,
-    GPA1 is GPA1*100,
-    GPA1 is round(GPA1),
-    GPA1 is GPA1/100,
-    GPA is least(GPA1, 1, GPA),
-    GPA is GPA*4,!,
+    GPA2 is GPA1+Bias,
+    GPA3 is round(GPA2),
+    least(GPA3, 1, GPA4),
+    GPA is GPA4*4,!,
     
     graduate(GPA),!.
     
@@ -309,8 +307,9 @@ update_status(New_M_progress,New_P_sanity,monster) :-
     
     New_P_sanity > 0,
     New_M_progress =< 0,!,
-    monster_status(_, M_semester, M_attack, _, _),
-    retract(monster_status(_, M_semester, M_attack, _, _)),
+    monster_status(M_type, M_semester, M_attack, _, _),
+    M_type \== ta,
+    retract(monster_status(M_type, M_semester, M_attack, _, _)),
     player_luck(P_luck),
     
     retract(in_test_room(true)),
