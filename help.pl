@@ -1,6 +1,6 @@
 help :-
-        write('Ketik perintah sebagai berikum'),nl,
-        write('0. start'),
+        write('Ketik perintah sebagai berikut'),nl,
+        write('0. start'),nl,
         write('1. w -> '),
         write('geser atas'),nl,
         write('2. a -> '),

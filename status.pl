@@ -3,7 +3,6 @@
 /* Menampilkan status player */
 
 /* status */
-
 status :-
     game_running(false),
     write('Start dulu gamenya, koplak!'),nl,!.

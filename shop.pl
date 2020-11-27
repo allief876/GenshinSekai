@@ -33,7 +33,7 @@ shop :-
     retract(player_in_shop(false)),
     asserta(player_in_shop(true)),
     write('What do you want to buy?'), nl,
-    write('1. Mukjizat (100 gold)'), nl,
+    write('1. Mukjizat (5 gold)'), nl,
     write('Use command "potion." to buy Mukjizat (It replenish your sanity!)'),nl.
 
 potion :-
@@ -44,7 +44,7 @@ potion :-
 potion :-
     player_gold(X),
     retract(player_gold(X)),
-    Y is X - 200,
+    Y is X - 5,
     asserta(player_gold(Y)),
     modify_player_inventory(mukjizat).
 
